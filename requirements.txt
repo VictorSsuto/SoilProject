@@ -1,0 +1,7 @@
+Flask==2.2.2
+Flask-Cors==3.0.10
+flask-objectid-converter==2.0.0
+marshmallow==3.18.0
+pymongo==4.3.2
+python-dotenv==0.21.0
+
