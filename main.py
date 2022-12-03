@@ -28,6 +28,7 @@ app.config['DEBUG'] = True
 #making our API accessible by any IP
 CORS(app)
 
+print("i am in the light api")
 
 if __name__ == "__main__":
     app.run(port=5002)
