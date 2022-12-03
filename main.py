@@ -17,7 +17,7 @@ MONGODB_PASS = os.environ.get("MONGODB_PASS")
 #connecting to mongodb
 client = pymongo.MongoClient(f"mongodb+srv://{MONGODB_USER}:{MONGODB_PASS}@{MONGODB_LINK}/?retryWrites=true&w=majority", server_api=ServerApi('1'))
 #name of database
-db = client.SoildDatabase
+db = client.SolidDatabase
 
 app = Flask(__name__)
 #adding an objectid type for the URL fields instead of treating it as string
