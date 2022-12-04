@@ -19,7 +19,7 @@ MONGODB_PASS = os.environ.get("MONGODB_PASS")
 #connecting to mongodb
 client = pymongo.MongoClient(f"mongodb+srv://{MONGODB_USER}:{MONGODB_PASS}@{MONGODB_LINK}/?retryWrites=true&w=majority", server_api=ServerApi('1'))
 #name of database
-db = client.SoilDatabase
+db = client.SoilCluster
 
 #
 # if 'light' not in db.list_collection_names():
@@ -50,7 +50,7 @@ def add_data():
 
     #Write to DB and insert the lumen,humidity and collectionid
     try:
-        addedId = db.read.insert_one(read).addedId
+        addedId = db.results.insert_one(read).addedId
         read["_id"] = str(addedId)
         return jsonify(read)
 
@@ -77,6 +77,43 @@ def get_by_Id(collection_id):
         print(e)
         return {"error": "some error happened"}, 501
 
+
+
+@app.route('/addTest', methods=["POST"])
+def add_data_test():
+    # Get JSON Object
+    read = request.json
+    #Schema Validation
+    error = ReadingSchemaPost().validate(read)
+    if error:
+        return error, 400
+
+    #Write to DB and insert the lumen,humidity and collectionid
+    try:
+        return jsonify(read)
+
+    except Exception as error:
+        return {"error": "some error happened"}, 500
+
+
+
+#Get readings from DB
+@app.route('/collectionTest/<collection_id>', methods=["GET"])
+def get_by_Id_test(collection_id):
+    #Select from results DB using collection_id
+    try:
+      read = {
+
+          "collection_id": collection_id,
+          "lumen": 10.5,
+          "humidity": 11
+      }
+      return jsonify(read)
+
+      # Return readings from query
+    except Exception as e:
+        print(e)
+        return {"error": "some error happened"}, 501
 
 
 
