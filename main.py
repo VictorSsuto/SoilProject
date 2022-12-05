@@ -15,35 +15,19 @@ import os
 MONGODB_LINK = os.environ.get("MONGODB_LINK")
 MONGODB_USER = os.environ.get("MONGODB_USER")
 MONGODB_PASS = os.environ.get("MONGODB_PASS")
-import certifi
-
-ca = certifi.where()
-
-client = pymongo.MongoClient(f"mongodb+srv://{MONGODB_USER}:{MONGODB_PASS}@{MONGODB_LINK}/?retryWrites=true&w=majority", tlsCAFile=ca, server_api=ServerApi('1'))
 
 #connecting to mongodb
+client = pymongo.MongoClient(f"mongodb+srv://{MONGODB_USER}:{MONGODB_PASS}@{MONGODB_LINK}/?retryWrites=true&w=majority", server_api=ServerApi('1'))
+#name of database
 db = client.SoilCluster
 
 #
 # if 'light' not in db.list_collection_names():
-#   if 'light' not in db.list_collection_name():
 #     db.create_collection("light",
-#                          timeseries={'timefield': 'timestamp', 'metafield': 'light_sensorid', 'granularity': 'minutes'})
+#                          timeseries={'timeField': 'timestamp', 'metaField': 'sensorId', 'granularity': 'minutes'})
 #
-# if 'humidity' not in db.list_collection_names():
-#   if 'humidity' not in db.list_collection_name():
-#     db.create_collection("humidity",
-#                          timeseries={'timefield': 'timestamp', 'metafield': 'humidity_sensorid', 'granularity': 'minutes'})
-#
-# if 'humidity' | 'light' not in db.list_collection_names():
-#   if 'humidity' not in db.list_collection_name():
-#     db.create_collection("humidity",
-#                          timeseries={'timefield': 'timestamp', 'metafield': 'sensorid', 'granularity': 'minutes'})
-#   elif 'light' not in db.list_collection_name():
-#     db.create_collection("light",
-#                          timeseries={'timefield': 'timestamp', 'metafield': 'sensorid', 'granularity': 'minutes'})
 
-#def gettimestamp():
+#def getTimeStamp():
  #   return dt.datetime.today().replace(microsecond=0)
 
 
@@ -65,13 +49,13 @@ def add_data():
         return error, 400
 
     #Write to DB and insert the lumen,humidity and collectionid
-    # try:
-    addedId = db.results.insert_one(read).inserted_id
-    read["_id"] = str(addedId)
-    return jsonify(read)
+    try:
+        addedId = db.results.insert_one(read).addedId
+        read["_id"] = str(addedId)
+        return jsonify(read)
 
-    # except Exception as error:
-    #     return {"error": "some error happened"}, 500
+    except Exception as error:
+        return {"error": "some error happened"}, 500
 
 
 
