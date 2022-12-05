@@ -23,11 +23,24 @@ db = client.SoilCluster
 
 #
 # if 'light' not in db.list_collection_names():
+#   if 'light' not in db.list_collection_name():
 #     db.create_collection("light",
-#                          timeseries={'timeField': 'timestamp', 'metaField': 'sensorId', 'granularity': 'minutes'})
+#                          timeseries={'timefield': 'timestamp', 'metafield': 'sensorid', 'granularity': 'minutes'})
 #
+# if 'humidity' not in db.list_collection_names():
+#   if 'humidity' not in db.list_collection_name():
+#     db.create_collection("humidity",
+#                          timeseries={'timefield': 'timestamp', 'metafield': 'sensorid', 'granularity': 'minutes'})
+#
+# if 'humidity' | 'light' not in db.list_collection_names():
+#   if 'humidity' not in db.list_collection_name():
+#     db.create_collection("humidity",
+#                          timeseries={'timefield': 'timestamp', 'metafield': 'sensorid', 'granularity': 'minutes'})
+#   elif 'light' not in db.list_collection_name():
+#     db.create_collection("light",
+#                          timeseries={'timefield': 'timestamp', 'metafield': 'sensorid', 'granularity': 'minutes'})
 
-#def getTimeStamp():
+#def gettimestamp():
  #   return dt.datetime.today().replace(microsecond=0)
 
 
