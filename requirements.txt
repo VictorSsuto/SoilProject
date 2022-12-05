@@ -5,3 +5,5 @@ marshmallow==3.18.0
 pymongo==4.3.2
 python-dotenv==0.21.0
 
+
+certifi~=2022.9.24
