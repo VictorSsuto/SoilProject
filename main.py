@@ -24,27 +24,14 @@ client = pymongo.MongoClient(f"mongodb+srv://{MONGODB_USER}:{MONGODB_PASS}@{MONG
 #connecting to mongodb
 db = client.SoilCluster
 
-#
-# if 'light' not in db.list_collection_names():
-#   if 'light' not in db.list_collection_name():
-#     db.create_collection("light",
-#                          timeseries={'timefield': 'timestamp', 'metafield': 'light_sensorid', 'granularity': 'minutes'})
-#
-# if 'humidity' not in db.list_collection_names():
-#   if 'humidity' not in db.list_collection_name():
-#     db.create_collection("humidity",
-#                          timeseries={'timefield': 'timestamp', 'metafield': 'humidity_sensorid', 'granularity': 'minutes'})
-#
-# if 'humidity' | 'light' not in db.list_collection_names():
-#   if 'humidity' not in db.list_collection_name():
-#     db.create_collection("humidity",
-#                          timeseries={'timefield': 'timestamp', 'metafield': 'sensorid', 'granularity': 'minutes'})
-#   elif 'light' not in db.list_collection_name():
-#     db.create_collection("light",
-#                          timeseries={'timefield': 'timestamp', 'metafield': 'sensorid', 'granularity': 'minutes'})
 
-#def gettimestamp():
- #   return dt.datetime.today().replace(microsecond=0)
+if 'SoilTimeseries' not in db.list_collection_names():
+    db.create_collection("SoilTimeseries",
+                         timeseries={'timeField': 'timestamp', 'metaField': 'deviceId', 'granularity': 'hours'})
+
+
+def gettimestamp():
+  return dt.datetime.today().replace(microsecond=0)
 
 
 
@@ -68,13 +55,9 @@ def add_data():
     # try:
     addedId = db.results.insert_one(read).inserted_id
     read["_id"] = str(addedId)
+
+
     return jsonify(read)
-
-    # except Exception as error:
-    #     return {"error": "some error happened"}, 500
-
-
-
 
 #Get readings from DB
 @app.route('/collection/<collection_id>', methods=["GET"])
@@ -95,41 +78,30 @@ def get_by_Id(collection_id):
 
 
 
-@app.route('/addTest', methods=["POST"])
-def add_data_test():
-    # Get JSON Object
-    read = request.json
-    #Schema Validation
-    error = ReadingSchemaPost().validate(read)
+
+
+
+
+@app.route("/device/<int:deviceID>/devices", methods=["POST"])
+def add_motion_value(deviceID):
+    error = ReadingSchemaPost().validate(request.json)
     if error:
         return error, 400
 
-    #Write to DB and insert the lumen,humidity and collectionid
-    try:
-        return jsonify(read)
+    data = request.json
+    data.update({"timestamp": gettimestamp(), "deviceID": deviceID})
 
-    except Exception as error:
-        return {"error": "some error happened"}, 500
+    db.motion.insert_one(data)
+
+    data["_id"] = str(data["_id"])
+    data["timestamp"] = data["timestamp"].strftime("%Y-%m-%dT%H:%M:%S")
+    return data
 
 
 
-#Get readings from DB
-@app.route('/collectionTest/<collection_id>', methods=["GET"])
-def get_by_Id_test(collection_id):
-    #Select from results DB using collection_id
-    try:
-      read = {
 
-          "collection_id": collection_id,
-          "lumen": 10.5,
-          "humidity": 11
-      }
-      return jsonify(read)
 
-      # Return readings from query
-    except Exception as e:
-        print(e)
-        return {"error": "some error happened"}, 501
+
 
 
 
