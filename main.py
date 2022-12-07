@@ -114,10 +114,10 @@ def get_All():
             '$group': {
                 '_id': 'none',
                 'avgHumidity': {
-                    '$avg': 'humidity'
+                    '$avg': '$humidity'
                 },
                 'avgLumen': {
-                    '$avg': 'lumen'
+                    '$avg': '$lumen'
                 },
                 'Levels': {
                     '$push': {
