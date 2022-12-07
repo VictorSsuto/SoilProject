@@ -128,77 +128,77 @@ def get_All():
 
 
 
-# # Get by ID
-#
-# @app.route("/devices/<int:deviceID>", methods=["GET"])
-# def get_By_Id(deviceID):
-#     start = request.args.get("start")
-#     end = request.args.get("end")
-#
-#     deviceList = {"id": deviceID}
-#     if start is None and end is not None:
-#         try:
-#             end = dt.datetime.strptime(end, "%Y-%m-%dT%H:%M:%S")
-#         except Exception as e:
-#             return {"error": "timestamp not following format %Y-%m-%dT%H:%M:%S"}, 400
-#
-#         deviceList.update({"timestamp": {"$lte": end}})
-#
-#     elif end is None and start is not None:
-#         try:
-#             start = dt.datetime.strptime(start, "%Y-%m-%dT%H:%M:%S")
-#         except Exception as e:
-#             return {"error": "timestamp not following format %Y-%m-%dT%H:%M:%S"}, 400
-#
-#         deviceList.update({"timestamp": {"$gte": start}})
-#     elif start is not None and end is not None:
-#         try:
-#             start = dt.datetime.strptime(start, "%Y-%m-%dT%H:%M:%S")
-#             end = dt.datetime.strptime(end, "%Y-%m-%dT%H:%M:%S")
-#
-#         except Exception as e:
-#             return {"error": "timestamp not following format %Y-%m-%dT%H:%M:%S"}, 400
-#
-#         # Aggregation pipeline
-#         deviceList.update({"timestamp": {"$gte": start, "$lte": end}})
-#
-#     data = list(em.db.SoilTimeseries.aggregate([
-#         {
-#             '$match': deviceList
-#         }, {
-#             '$group': {
-#                 '_id': '$deviceID',
-#                 'avgHumidity': {
-#                     '$avg': '$humidity'
-#                 },
-#                 'avgLumen': {
-#                     '$avg': '$lumen'
-#                 },
-#                 'Levels': {
-#                     '$push': {
-#                         'timestamp': '$timestamp',
-#                         'humidity': '$humidity',
-#                         'lumen': '$lumen'
-#
-#                     }
-#                 }
-#             }
-#         }
-#     ]))
-#
-#     if data:
-#         data = data[0]
-#         if "_id" in data:
-#             del data["_id"]
-#             data.update({"id": deviceID})
-#
-#         for device in data['Levels']:
-#             device["timestamp"] = device["timestamp"].strftime("%Y-%m-%dT%H:%M:%S")
-#
-#         return data
-#     else:
-#         return {"error": "ID does not exist"}, 404
-#
+# Get by ID
+
+@app.route("/devices/<int:deviceID>", methods=["GET"])
+def get_By_Id(deviceID):
+    start = request.args.get("start")
+    end = request.args.get("end")
+
+    deviceList = {"id": deviceID}
+    if start is None and end is not None:
+        try:
+            end = dt.datetime.strptime(end, "%Y-%m-%dT%H:%M:%S")
+        except Exception as e:
+            return {"error": "timestamp not following format %Y-%m-%dT%H:%M:%S"}, 400
+
+        deviceList.update({"timestamp": {"$lte": end}})
+
+    elif end is None and start is not None:
+        try:
+            start = dt.datetime.strptime(start, "%Y-%m-%dT%H:%M:%S")
+        except Exception as e:
+            return {"error": "timestamp not following format %Y-%m-%dT%H:%M:%S"}, 400
+
+        deviceList.update({"timestamp": {"$gte": start}})
+    elif start is not None and end is not None:
+        try:
+            start = dt.datetime.strptime(start, "%Y-%m-%dT%H:%M:%S")
+            end = dt.datetime.strptime(end, "%Y-%m-%dT%H:%M:%S")
+
+        except Exception as e:
+            return {"error": "timestamp not following format %Y-%m-%dT%H:%M:%S"}, 400
+
+        # Aggregation pipeline
+        deviceList.update({"timestamp": {"$gte": start, "$lte": end}})
+
+    data = list(em.db.SoilTimeseries.aggregate([
+        {
+            '$match': deviceList
+        }, {
+            '$group': {
+                '_id': '$deviceID',
+                'avgHumidity': {
+                    '$avg': '$humidity'
+                },
+                'avgLumen': {
+                    '$avg': '$lumen'
+                },
+                'Levels': {
+                    '$push': {
+                        'timestamp': '$timestamp',
+                        'humidity': '$humidity',
+                        'lumen': '$lumen'
+
+                    }
+                }
+            }
+        }
+    ]))
+
+    if data:
+        data = data[0]
+        if "_id" in data:
+            del data["_id"]
+            data.update({"id": deviceID})
+
+        for device in data['Levels']:
+            device["timestamp"] = device["timestamp"].strftime("%Y-%m-%dT%H:%M:%S")
+
+        return data
+    else:
+        return {"error": "ID does not exist"}, 404
+
 
 if __name__ == "__main__":
     app.run(port=5002)
