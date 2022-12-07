@@ -7,6 +7,9 @@ from bson import json_util, ObjectId
 from flask_cors import CORS
 import datetime as dt
 from Schemas import ReadingSchemaPost
+import EmulatedData as em
+
+
 
 #loading private connection information from environment variables
 from dotenv import load_dotenv
@@ -93,6 +96,14 @@ def add_motion_value(deviceID):
     return data
 
 
+
+#Get all
+
+#Get by ID
+
+#Get by humidity ID
+
+#Get by Lumen ID
 
 
 
