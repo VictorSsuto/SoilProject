@@ -77,11 +77,6 @@ def get_by_Id(collection_id):
         return {"error": "some error happened"}, 501
 
 
-
-
-
-
-
 @app.route("/device/<int:deviceID>/devices", methods=["POST"])
 def add_motion_value(deviceID):
     error = ReadingSchemaPost().validate(request.json)
@@ -96,9 +91,6 @@ def add_motion_value(deviceID):
     data["_id"] = str(data["_id"])
     data["timestamp"] = data["timestamp"].strftime("%Y-%m-%dT%H:%M:%S")
     return data
-
-
-
 
 
 
