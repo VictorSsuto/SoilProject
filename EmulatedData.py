@@ -71,4 +71,4 @@ if __name__ == "__main__":
             'humidity': humidity,
             'lumen': lumen
         })
-        sleep(2000000)
+        sleep(2000)
