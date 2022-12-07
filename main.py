@@ -22,7 +22,8 @@ import certifi
 
 ca = certifi.where()
 
-client = pymongo.MongoClient(f"mongodb+srv://{MONGODB_USER}:{MONGODB_PASS}@{MONGODB_LINK}/?retryWrites=true&w=majority", tlsCAFile=ca, server_api=ServerApi('1'))
+client = pymongo.MongoClient(f"mongodb+srv://{MONGODB_USER}:{MONGODB_PASS}@{MONGODB_LINK}/?retryWrites=true&w=majority",
+                             tlsCAFile=ca, server_api=ServerApi('1'))
 
 #connecting to mongodb
 db = client.SoilCluster
@@ -96,14 +97,42 @@ def add_motion_value(deviceID):
     return data
 
 
+# Get all
+@app.route("/devices", methods=["GET"])
+def get_All():
+    query = em.db.results.find()
+    deviceList = {}
 
-#Get all
+    for x in query:
+        deviceList = {'devices': x}
 
-#Get by ID
+    data = list(em.db.SoilTimeseries.aggregate([
 
-#Get by humidity ID
+        {
+            '$match': deviceList
+        }, {
+            '$group': {
+                '_id': 'none',
+                'avgHumidity': {
+                    '$avg': 'humidity'
+                },
+                'avgLumen': {
+                    '$avg': 'lumen'
+                },
+                'Levels': {
+                    '$push': {
+                        'timestamp': '$timestamp',
+                        'lumen': '$lumen',
+                        'humidity': '$humidity'
+                    }
+                }
+            }
+        }
+    ]))
+    return data
 
-#Get by Lumen ID
+
+# Get by ID
 
 
 

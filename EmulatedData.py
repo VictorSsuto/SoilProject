@@ -25,7 +25,7 @@ client = pymongo.MongoClient(f"mongodb+srv://{MONGODB_USER}:{MONGODB_PASS}@{MONG
 db = client.SoilCluster
 
 #If the sensor is on...
-sensorOn = True
+sensor = True
 
 #Time series
 if 'SoilTimeseries' not in db.list_collection_names():
@@ -37,9 +37,7 @@ if 'SoilTimeseries' not in db.list_collection_names():
 
 
 if __name__ == "__main__":
-    while sensorOn:
-
-
+    while sensor:
         humidity = random.randint(0, 100)
         lumen = random.randint(0, 100)
 
