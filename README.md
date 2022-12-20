@@ -29,4 +29,61 @@ This project aims to please anyone that want to take care of their plants while 
 
 # Api method with expected response: 
 
+GET -/devices
+
+Description 
+
+This method reads the data from our emulated data. 
+
+HTTP response status code
+
+400 - Bad Request
+
+200 - Ok
+
+500 - Internal Server Error
+
+
+GET -/devices/<int:deviceId>
+
+Description 
+
+This method reads the data from our emulated data. It can categorize it by an ID and it returns the average Humidity and Lumens. 
+
+HTTP response status code
+
+400 - Bad Request
+
+200 - Ok
+
+500 - Internal Server Error
+
+ 
+POST -/device/<int:device>/devices
+
+Description
+
+This methods creates data. It was used as a test at first. It is now not needed.
+
+HTTP response status code
+
+400 - Bad Request
+
+200 - Ok
+
+500 - Internal Server Error
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
