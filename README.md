@@ -17,11 +17,16 @@ This project aims to please anyone that want to take care of their plants while 
 
       
   - [Hardware Schematics](https://user-images.githubusercontent.com/83074897/208696296-8e76aa25-d190-4d38-9ced-4eff7b94b525.png)
+  - Data sampling 
+    - Humidity%
+    - Light: resuistance(ohms)/lux
+
+
+# Mongo db schema design 
   - [Sensor data sampling and specifications for humidty](https://user-images.githubusercontent.com/83074897/208696590-4d9b1339-91c2-4ae4-9613-356ba2b938d7.png)
   - [Sensor data sampling and specifications for Light](https://user-images.githubusercontent.com/83074897/208696765-c87451fb-7474-436f-b79e-d474f785d547.png)
 
 
-
-
+# Api method with expected response: 
 
 
