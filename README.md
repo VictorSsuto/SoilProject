@@ -11,6 +11,11 @@ This project aims to please anyone that want to take care of their plants while 
 
   - Sensors Used
       - [Arduino Soil Moisture Sensor](https://m.media-amazon.com/images/I/51viGBnJOhL._AC_.jpg)
+      - [Photoresistor](https://en.wikipedia.org/wiki/File:LDR_1480405_6_7_HDR_Enhancer_1.jpg)
+      - [ArduinoMKR1010](https://docs.arduino.cc/static/df779d958c386826c73e149e42e28918/image.svg)
+
+
+      
   - Hardware Schematics
   - Sensor data sampling and specifications 
 
