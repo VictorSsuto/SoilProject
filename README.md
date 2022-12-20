@@ -16,7 +16,8 @@ This project aims to please anyone that want to take care of their plants while 
 
 
       
-  - Hardware Schematics
+  - [Hardware Schematics](![image](https://user-images.githubusercontent.com/83074897/208696296-8e76aa25-d190-4d38-9ced-4eff7b94b525.png))
+  - 
   - Sensor data sampling and specifications 
 
 
