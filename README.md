@@ -43,6 +43,7 @@ HTTP response status code
 
 500 - Internal Server Error
 
+------------------------------------------------------
 
 GET -/devices/<int:deviceId>
 
@@ -57,6 +58,8 @@ HTTP response status code
 200 - Ok
 
 500 - Internal Server Error
+
+------------------------------------------------------
 
  
 POST -/device/<int:device>/devices
