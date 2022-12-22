@@ -4,7 +4,6 @@ from pymongo.server_api import ServerApi
 from flask_cors import CORS
 import datetime as dt
 from Schemas import ReadingSchemaPost
-import EmulatedData as em
 
 # loading private connection information from environment variables
 from dotenv import load_dotenv
@@ -12,15 +11,9 @@ from dotenv import load_dotenv
 load_dotenv()
 import os
 
-MONGODB_LINK = os.environ.get("MONGODB_LINK")
-MONGODB_USER = os.environ.get("MONGODB_USER")
 MONGODB_PASS = os.environ.get("MONGODB_PASS")
-import certifi
 
-ca = certifi.where()
-
-client = pymongo.MongoClient(f"mongodb+srv://{MONGODB_USER}:{MONGODB_PASS}@{MONGODB_LINK}/?retryWrites=true&w=majority",
-                             tlsCAFile=ca, server_api=ServerApi('1'))
+client = pymongo.MongoClient(f"mongodb+srv://Tony:{MONGODB_PASS}@soilcluster.wz1jyhk.mongodb.net/?retryWrites=true&w=majority")
 
 # connecting to mongodb
 db = client.SoilCluster
@@ -95,13 +88,13 @@ def add_motion_value(deviceID):
 # Get all
 @app.route("/devices", methods=["GET"])
 def get_All():
-    query = em.db.results.find()
+    query = db.results.find()
     deviceList = {}
 
     for x in query:
         deviceList = {'devices': x}
 
-    data = list(em.db.SoilTimeseries.aggregate([
+    data = list(db.SoilTimeseries.aggregate([
 
         {
             '$match': deviceList
@@ -162,7 +155,7 @@ def get_By_Id(deviceID):
         # Aggregation pipeline
         deviceList.update({"timestamp": {"$gte": start, "$lte": end}})
 
-    data = list(em.db.SoilTimeseries.aggregate([
+    data = list(db.SoilTimeseries.aggregate([
         {
             '$match': deviceList
         }, {
