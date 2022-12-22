@@ -11,14 +11,14 @@ This project aims to please anyone that want to take care of their plants while 
 
 # Hardware design 
 
-  - Sensors Used
+  - Sensors/Board Used
       - [Arduino Soil Moisture Sensor](https://m.media-amazon.com/images/I/51viGBnJOhL._AC_.jpg)
       - [Photoresistor](https://en.wikipedia.org/wiki/File:LDR_1480405_6_7_HDR_Enhancer_1.jpg)
       - [ArduinoMKR1010](https://docs.arduino.cc/static/df779d958c386826c73e149e42e28918/image.svg)
 
 
       
-  - [Hardware Schematics](https://user-images.githubusercontent.com/83074897/209220588-29fc6c4f-e29d-49ad-85c4-aa6946a155fa.png)
+  - [Hardware Schematics](https://user-images.githubusercontent.com/83074897/209220588-29fc6c4f-e29d-49ad-85c4-aa6946a155fa.png) (The board isnt the same you would need the board mentioned aboce)
     - Black wire -> Ground
     - Red wire -> 5v
     - Yellow wire -> Analogue 0
