@@ -16,7 +16,10 @@ This project aims to please anyone that want to take care of their plants while 
 
 
       
-  - [Hardware Schematics](https://user-images.githubusercontent.com/83074897/208696296-8e76aa25-d190-4d38-9ced-4eff7b94b525.png)
+  - [Hardware Schematics](https://user-images.githubusercontent.com/83074897/209220588-29fc6c4f-e29d-49ad-85c4-aa6946a155fa.png)
+    - Black wire -> Ground
+    - Red wire -> 5v
+    - Yellow wire -> Analogue 0
   - Data sampling 
     - Humidity%
     - Light: resuistance(ohms)/lux
